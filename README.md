@@ -22,6 +22,12 @@ Le fichier `requirements.txt` contient toutes les bibliothèques nécessaires à
 - `RAPPORT_GERVASONI_MARTIN.pdf` : Rapport détaillant les méthodes utilisées, les résultats obtenus, et les conclusions.
 - `requirements.txt` : Liste des dépendances Python nécessaires.
 
+## Base de Données utilisée
+
+Nous avons utilisé la base de données nommée "20240125_dataset_rscir_xxs.pickle". Étant donné que le dataset est très lourd, nous ne pouvons par le partager ici. Mais cette base de données est un ensemble structuré de métadonnées descriptives issues du corpus de documents disponibles sur le portail www.persee.fr, un site dédié à la numérisation et à la diffusion du patrimoine scientifique dans les domaines des sciences humaines et sociales. 
+
+Le dataset spécifique a été généré à partir d'un sous-ensemble des fichiers de dumps de données liées (.rdf) du triplestore de Persée, disponibles à l'adresse https://data.persee.fr/explorer/demander-un-dump/dumps-collections/. 
+
 ### Note importante
 
 Le moteur de recherche (Fonction 3) est particulièrement exigeant en termes de mémoire RAM. Assurez-vous de disposer de suffisamment de ressources système avant de lancer cette partie.
