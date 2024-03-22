@@ -713,7 +713,49 @@ for i, td in zip(range(nb_top_docs), top_docs):
     print("%s (%s): %s" % (i+1, td, title_list[td])) # Affiche les titres des documents les plus similaires
 
 ##############################################################################
-# 2. Intégration de l'information textuelle et structurelle avec les GNNs
+# 2. SBERT : Calculer une simple similaritée basée sur les sens des phrases
+##############################################################################
+
+# https://www.sbert.net/
+# https://www.sbert.net/docs/usage/semantic_textual_similarity.html
+
+#!pip install -U sentence-transformers
+from sentence_transformers import SentenceTransformer, util
+import torch
+
+# Chargement du modèle SBERT
+model = SentenceTransformer("all-MiniLM-L6-v2")
+
+# Encoding des titres des documents
+document_embedding = model.encode(title_list)
+
+for title_list, document_embedding in zip(title_list, document_embedding):
+    print("Sentence:", title_list)
+    print("Embedding:", document_embedding)
+    print("")
+
+# Encoding de la requête
+query_embedding = model.encode(' '.join(query))
+
+# Calcul de la similarité entre tous les titres et la requête
+similarities = util.cos_sim(query_embedding, document_embedding)[0]
+
+# Trie décroissant des arguments en fonction de leur similarité avec la requête
+sorted_indices = torch.argsort(similarities, descending=True)
+
+# Les 10 titres les plus similaires à la requête
+top_n = 10
+top_documents = [(title_list[i], similarities[i]) for i in sorted_indices[:top_n]]
+
+# Affichage des 10 titres et des scores de similarité
+for i, (title, score) in enumerate(top_documents):
+    print(f"Document {i+1}:")
+    print("Titre:", title)
+    print("Score de similarité:", score)
+    print()
+
+##############################################################################
+# 3. Intégration de l'information textuelle et structurelle avec les GNNs
 ##############################################################################
 
 # https://pypi.org/project/stop-words/
